@@ -18,6 +18,7 @@ Meteor.methods({
   toggleRole: toggleRole,
   updateUser: updateUser,
   createAccount: createAccount,
+  createLoginlessAccount: createLoginlessAccount,
 
   setSetting : setSetting
 });
@@ -299,6 +300,21 @@ function createAccount(username, password, profile){
     });
   }
   return false;
+}
+
+// To allow for login-less usage, we allow everyone to be able to create accounts.
+function createLoginlessAccount(username, password, profile){
+  // TODO: validate username, password
+  check(username, String);
+  check(password, String);
+
+  // TODO: Disallow for any of the users created to be admins.
+
+  return Accounts.createUser({
+    username: username,
+    password: password,
+    profile: profile ? profile : {}
+  });
 }
 
 function setSetting(setting, value){

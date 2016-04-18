@@ -54,14 +54,14 @@ function loginWithoutPassword(t) {
   }
 
   // Try to create a new user
-  Meteor.call("createAccount",
+  Meteor.call("createLoginlessAccount",
     user.username,
     user.password,
     user.profile,
     function(error) {
       if (error) {
         console.log("Does user ", user.username, " already exist: ", Boolean(error) );
-        console.log(error.reason);
+        console.log(error);
       };
 
       // Sign the user in.
@@ -69,6 +69,7 @@ function loginWithoutPassword(t) {
         // If sign in fails, create a new user.
         if (error) {
           console.log("Error logging in user ", user.username );
+          console.log(error);
           t.error.set(error.reason);
         }
       });
