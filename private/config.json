@@ -5,8 +5,8 @@
   },
   "github": {
     "enable": false,
-    "clientId": "github-client-id",
-    "secret": "github-secret"
+    "clientId": "29897e9b29c8e10b40a8",
+    "secret": "9962cdeb8daa4fec119cd11e2b3127f7ff16eba3"
   },
   "facebook": {
     "enable": false,

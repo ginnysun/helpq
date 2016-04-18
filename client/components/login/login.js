@@ -13,13 +13,9 @@ Template.login.events({
       loginStyle: 'redirect'
     });
   },
-  'click #login-password': function(e, t){
-    loginPassword(t);
-  },
-  'keyup #password': function(e, t){
-    if (e.keyCode === 13){
-      loginPassword(t);
-    }
+  'click #login-submit': function(e, t){
+    // loginPassword(t);
+    loginWithoutPassword(t);
   }
 });
 
@@ -41,6 +37,7 @@ Template.login.helpers({
 
 Template.login.rendered = function(){
   $(this.findAll('.container')).addClass('animated fadeIn');
+  $(this.findAll('.ui.dropdown')).dropdown();
 };
 
 function loginPassword(t){
