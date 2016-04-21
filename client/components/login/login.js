@@ -49,7 +49,7 @@ function loginWithoutPassword(t) {
     username: username,
     password: username,
     profile: {
-      name: $('#first-name').val().toLowerCase()
+      name: $('#first-name').val()
     }
   }
 
