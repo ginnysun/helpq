@@ -44,7 +44,7 @@ Template.login.rendered = function() {
 // When a user hits submit, log them in with their name as the username
 function loginWithoutPassword(t) {
   // Auto create username and password
-  var username = $('#first-name').val().toLowerCase() + '-' + $('#last-name').val().toLowerCase() + '-' + $('#track-selection').dropdown('get value');
+  var username = $('#first-name').val().toLowerCase().replace(/\W/g, '') + '-' + $('#last-name').val().toLowerCase().replace(/\W/g, '') + '-' + $('#track-selection').dropdown('get value').replace(/\W/g, '');
   var user = {
     username: username,
     password: username,
