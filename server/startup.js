@@ -3,11 +3,11 @@ Meteor.startup(function(){
   // Grab the config
   // This should be autograbbed by meteor based on value of --settings
   var config = Meteor.settings;
-  
-  // Create admins
-  createAdmin(config.admin.username, config.admin.password);
 
-  // Pre populate mentor users
+  // Create admins
+  createAdmin(config.admin.username, config.public.password, config.admin.profile);
+
+  // Pre-populate mentor users
 
   // Clear Service integrations
   ServiceConfiguration.configurations.remove({});
@@ -34,29 +34,23 @@ Meteor.startup(function(){
 
 });
 
-function createAdmin(username, password){
-  var user = Meteor.users.findOne({
-    username: username
-  });
+function createAdmin(username, password, profile){
+  var newUser = {
+    username: username,
+    password: password,
+    profile: profile
+  };
 
-  if (!user){
-    Accounts.createUser({
-      username: username,
-      password: password,
-      profile: {
-        name: 'Admin'
-      }
-    });
-  }
+  newUser.profile.admin = true;
 
-  Meteor.users.update({
-    username: username
-  },{
-    $set:
-      {
-        'profile.admin': true
-      }
-  })
+  // Overwrite already existing users to force creation of admin.
+  Meteor.users.remove(
+    {username: username},
+    function(err, results) {
+      console.log("Creating admin user", newUser);
+      Accounts.createUser(newUser);
+    }
+  );
 }
 
 function addServiceIntegration(service, config){

@@ -44,10 +44,13 @@ Template.login.rendered = function() {
 // When a user hits submit, log them in with their name as the username
 function loginWithoutPassword(t) {
   // Auto create username and password
+  // Username is firstname-lastname-track
+  // password is username.
   var username = $('#first-name').val().toLowerCase().replace(/\W/g, '') + '-' + $('#last-name').val().toLowerCase().replace(/\W/g, '') + '-' + $('#track-selection').dropdown('get value').replace(/\W/g, '');
+
   var user = {
     username: username,
-    password: username,
+    password: Meteor.settings.public.password,
     profile: {
       name: $('#first-name').val()
     }
@@ -60,7 +63,7 @@ function loginWithoutPassword(t) {
     user.profile,
     function(error) {
       if (error) {
-        console.log("Does user ", user.username, " already exist: ", Boolean(error) );
+        console.log("Does user ", user.username, " already exist: ", Boolean(error));
         console.log(error);
       };
 
@@ -68,7 +71,7 @@ function loginWithoutPassword(t) {
       Meteor.loginWithPassword(user.username, user.password, function(error) {
         // If sign in fails, create a new user.
         if (error) {
-          console.log("Error logging in user ", user.username );
+          console.log("Error logging in user ", user.username);
           console.log(error);
           t.error.set(error.reason);
         }
