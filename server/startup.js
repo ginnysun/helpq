@@ -41,7 +41,9 @@ function createAdmin(username, password, profile){
     profile: profile
   };
 
+  // Set to be mentor AND admin.
   newUser.profile.admin = true;
+  newUser.profile.mentor = true;
 
   // Overwrite already existing users to force creation of admin.
   Meteor.users.remove(

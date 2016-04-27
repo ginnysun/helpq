@@ -44,7 +44,7 @@ function createTicket(topic, location, contact) {
       userId: user._id,
       name: _getUserName(user),
       topic: topic,
-      location: location,
+      location: parseInt(location, 10), // Make location a table number
       contact: contact,
       timestamp: Date.now(),
       status: "OPEN",

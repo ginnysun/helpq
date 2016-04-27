@@ -100,6 +100,7 @@ Template.ticketPanel.events({
 function isValid(){
   return $('#topic').val().length > 0 &&
          $('#location').val().length > 0 &&
+         isNaN($('#location').val()) === false &&
          $('#contact').val().length > 0
 }
 
