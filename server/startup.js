@@ -1,10 +1,13 @@
 // Startup Functions
 Meteor.startup(function(){
   // Grab the config
-  var config = JSON.parse(Assets.getText('config.json'));
-
-  // Create the admin
+  // This should be autograbbed by meteor based on value of --settings
+  var config = Meteor.settings;
+  
+  // Create admins
   createAdmin(config.admin.username, config.admin.password);
+
+  // Pre populate mentor users
 
   // Clear Service integrations
   ServiceConfiguration.configurations.remove({});
