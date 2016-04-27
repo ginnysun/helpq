@@ -304,7 +304,7 @@ function createAccount(username, password, profile){
 
 // To allow for login-less usage, we allow everyone to be able to create accounts.
 // Username is firstname-lastname-track.
-// password is 
+// password is "password"
 function createLoginlessAccount(username, password, profile){
   // TODO: validate username, password
   check(username, String);

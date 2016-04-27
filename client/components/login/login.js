@@ -45,14 +45,20 @@ Template.login.rendered = function() {
 function loginWithoutPassword(t) {
   // Auto create username and password
   // Username is firstname-lastname-track
-  // password is username.
-  var username = $('#first-name').val().toLowerCase().replace(/\W/g, '') + '-' + $('#last-name').val().toLowerCase().replace(/\W/g, '') + '-' + $('#track-selection').dropdown('get value').replace(/\W/g, '');
+  // password is "password".
+
+  var firstNameSanitized = $('#first-name').val().toLowerCase().replace(/\W/g, '');
+  var lastNameSanitized = $('#last-name').val().toLowerCase().replace(/\W/g, '');
+  var trackSanitized = $('#track-selection').dropdown('get value').toLowerCase().replace(/\W/g, '');
+
+  var username = firstNameSanitized + '-' + lastNameSanitized + '-' + trackSanitized;
 
   var user = {
     username: username,
     password: Meteor.settings.public.password,
     profile: {
-      name: $('#first-name').val()
+      name: $('#first-name').val(),
+      track: $('#track-selection').dropdown('get value')
     }
   }
 
