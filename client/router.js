@@ -8,6 +8,15 @@ Router.onBeforeAction(function() {
 
 Router.route('/', function(){
   this.layout('bannerLayout');
+  if (authorized.mentor()){
+    Router.go('mentor');
+  } else {
+    this.render('home');
+  }
+});
+
+Router.route('/createticket', function(){
+  this.layout('bannerLayout');
   this.render('home');
 });
 

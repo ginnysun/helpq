@@ -103,7 +103,7 @@ function isValid(){
     returnVal = $('#topic').val().length > 0 &&
            $('#location').val().length > 0 &&
            isNaN($('#location').val()) === false &&
-           ($('#location').val() > 0 && $('#location').val() < 400)
+           ($('#location').val() >= 100 && $('#location').val() < 400)
            $('#contact').val().length > 0;
   } catch (e) {
     returnVal = false;
