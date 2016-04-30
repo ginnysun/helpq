@@ -5,7 +5,15 @@ Meteor.startup(function(){
   var config = Meteor.settings;
 
   // Create admins
-  createAdmin(config.admin.username, config.public.password, config.admin.profile);
+  // for admin in config.admins
+  // createAdmin(admin.username, config.public.password, admin.profile)
+  var admin, i, len, ref;
+
+  ref = config.admins;
+  for (i = 0, len = ref.length; i < len; i++) {
+    admin = ref[i];
+    createAdmin(admin.username, config["public"].password, admin.profile);
+  }
 
   // Pre-populate mentor users
 
