@@ -5,6 +5,7 @@ Meteor.startup(function(){
   var config = Meteor.settings;
 
   // Create admins
+  // Coffeescript code
   // for admin in config.admins
   // createAdmin(admin.username, config.public.password, admin.profile)
   var admin, i, len, ref;
