@@ -50,19 +50,20 @@ function createAdmin(username, password, profile){
     profile: profile
   };
 
+  var user = Meteor.users.findOne({
+    username: username
+  });
+
   // Set to be mentor AND admin.
   newUser.profile.admin = true;
   newUser.profile.mentor = true;
 
-  // Overwrite already existing users to force creation of admin.
-  Meteor.users.remove(
-    {username: username},
-    function(err, results) {
-      console.log("Creating admin user", newUser);
-      Accounts.createUser(newUser);
-    }
-  );
-}
+  // Only overwrite user if it does not exist.
+  if (!user){
+    Accounts.createUser(newUser);
+  }
+  };
+
 
 function addServiceIntegration(service, config){
   if (config.enable){
