@@ -25,6 +25,11 @@ Router.route('/mentor', function(){
   }
 });
 
+Router.route('/billboard', function(){
+  this.layout('bannerLayout');
+  this.render('billboard');
+});
+
 Router.route('/admin', function(){
   this.layout('bannerLayout');
   if (authorized.admin()){
