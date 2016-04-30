@@ -66,27 +66,20 @@ function formatCsv(csv, t){
   return rows.map(function(row, i){
     var columns = row.split(',');
 
-    if (columns.length < 3){
-      throw "Row " + i + " has " + columns.length + " values, expected 3";
+    if (columns.length < 2 || columns.length > 2){
+      throw "Row " + i + " has " + columns.length + " values, expected 2";
     }
 
-    if (columns.length > 3){
-      throw "Row " + i + " has " + columns.length + " values, expected 3";
-    }
+    var firstName = columns[0].trim(),
+        lastName = columns[1].trim();
 
-    var username = columns[0].trim(),
-        password = columns[1].trim(),
-        name     = columns[2].trim();
+    // Create the mentor's username
+    var firstNameSanitized = firstName.toLowerCase().replace(/[^a-zA-Z0-9]/g, '');
+    var lastNameSanitized = lastName.toLowerCase().replace(/[^a-zA-Z0-9]/g, '');
+    var trackSanitized = "Mentor".toLowerCase().replace(/[^a-zA-Z0-9]/g, '');
 
-    // Ensure the username is unique
-    if (users[username]) {
-      throw "Duplicate username: " + username;
-    }
-
-    // Ensure the password is at least 6 characters
-    if (password.length < 6){
-      throw "Row " + i + " password too short, must be 6 characters or more";
-    }
+    var username = firstNameSanitized + '-' + lastNameSanitized + '-' + trackSanitized;
+    var password = Meteor.settings.public.password;
 
     // Keep track of this username
     users[username] = true;
@@ -95,7 +88,9 @@ function formatCsv(csv, t){
       username: username,
       password: password,
       profile: {
-        name: name
+        name: firstName,
+        mentor: true,
+        track: "Mentor"
       }
     }
   })
