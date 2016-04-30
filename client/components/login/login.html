@@ -22,20 +22,22 @@
         </div>
       </div>
       <div class="field">
-        <label>Track Name</label>
+        <label>I am a:</label>
         <div class="ui selection dropdown" id="track-selection">
-          <div class="default text">Select</div>
+          <div class="default text">Select Role</div>
           <i class="dropdown icon"></i>
           <input type="hidden" name="track">
           <div class="menu">
+            <div class="item" data-value="Mentor">Mentor
+            </div>
             <div class="item" data-value="{{constant 'TRACK_1_DESC'}}">
-              <img class="ui mini spaced image" src="{{constant 'TRACK_1_ICON'}}">{{constant 'TRACK_1_DESC'}}
+              <img class="ui mini spaced image" src="{{constant 'TRACK_1_ICON'}}"/>{{constant 'TRACK_1_DESC'}} Participant
             </div>
             <div class="item" data-value="{{constant 'TRACK_2_DESC'}}">
-              <img class="ui mini spaced image" src="{{constant 'TRACK_2_ICON'}}">{{constant 'TRACK_2_DESC'}}
+              <img class="ui mini spaced image" src="{{constant 'TRACK_2_ICON'}}"/>{{constant 'TRACK_2_DESC'}} Participant
             </div>
             <div class="item" data-value="{{constant 'TRACK_3_DESC'}}">
-              <img class="ui mini spaced image" src="{{constant 'TRACK_3_ICON'}}">{{constant 'TRACK_3_DESC'}}
+              <img class="ui mini spaced image" src="{{constant 'TRACK_3_ICON'}}"/>{{constant 'TRACK_3_DESC'}} Participant
             </div>
           </div>
         </div>

@@ -2,6 +2,13 @@ Template.login.onCreated(function() {
   this.error = new ReactiveVar();
 });
 
+// Checks if user input is valid.
+function isValid(){
+  return $('#first-name').val().length > 0 &&
+         $('#last-name').val().length > 0 &&
+         $('#track-selection').dropdown('get value').length > 0;
+}
+
 Template.login.events({
   'click #login-github': function() {
     Meteor.loginWithGithub({
@@ -15,8 +22,11 @@ Template.login.events({
   },
   'click #login-submit': function(e, t) {
     // Do not allow for defaults to be used for the login.
-    e.preventDefault();
-    loginWithoutPassword(t);
+    if (isValid()) {
+      loginWithoutPassword(t);
+    } else {
+      t.error.set("Please full out all fields to login.");
+    };
   }
 });
 
@@ -47,9 +57,10 @@ function loginWithoutPassword(t) {
   // Username is firstname-lastname-track
   // password is "password".
 
-  var firstNameSanitized = $('#first-name').val().toLowerCase().replace(/\W/g, '');
-  var lastNameSanitized = $('#last-name').val().toLowerCase().replace(/\W/g, '');
-  var trackSanitized = $('#track-selection').dropdown('get value').toLowerCase().replace(/\W/g, '');
+  // Removes non-alphanumeric chars.
+  var firstNameSanitized = $('#first-name').val().toLowerCase().replace(/[^a-zA-Z0-9]/g, '');
+  var lastNameSanitized = $('#last-name').val().toLowerCase().replace(/[^a-zA-Z0-9]/g, '');
+  var trackSanitized = $('#track-selection').dropdown('get value').toLowerCase().replace(/[^a-zA-Z0-9]/g, '');
 
   var username = firstNameSanitized + '-' + lastNameSanitized + '-' + trackSanitized;
 
