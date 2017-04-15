@@ -2,7 +2,7 @@
   "name": "mentor_q",
   "version": "1.0.0",
   "description": "Mentor Queue for MIT Hacking Medicine Grand Hack 2016",
-  "main": "meteor run",
+  "main": "meteor --settings private/config.json",
   "dependencies": {
     "husky": "^0.11.4"
   },
@@ -12,7 +12,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepush": "githooks/pre-push"
-  
+
   },
   "repository": {
     "type": "git",
