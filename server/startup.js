@@ -10,7 +10,10 @@ Meteor.startup(function(){
   // createAdmin(admin.username, config.public.password, admin.profile)
   var admin, i, len, ref;
 
-  ref = config.admins;
+  ref = config.admin;
+  console.log(config);
+  console.log("aasdfasdf");
+  console.log(ref);
   for (i = 0, len = ref.length; i < len; i++) {
     admin = ref[i];
     createAdmin(admin.username, config["public"].password, admin.profile);
