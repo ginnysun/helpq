@@ -98,9 +98,17 @@ Template.ticketPanel.events({
 });
 
 function isValid(){
-  return $('#topic').val().length > 0 &&
-         $('#location').val().length > 0 &&
-         $('#contact').val().length > 0
+  var returnVal = false;
+  try {
+    returnVal = $('#topic').val().length > 0 &&
+           $('#location').val().length > 0 &&
+           isNaN($('#location').val()) === false &&
+           ($('#location').val() >= 100 && $('#location').val() < 400)
+           $('#contact').val().length > 0;
+  } catch (e) {
+    returnVal = false;
+  }
+  return returnVal;
 }
 
 function getTicket(){

@@ -2,16 +2,18 @@
   {{#if currentUser }}
     <div id="nav">
       <div class="ui secondary inverted menu">
-        <a class="icon item" href="/">
+        <a class="icon item" href="/createticket">
           <i class="ui home icon"></i>
         </a>
-
         {{#if userIs 'admin'}}
           <a class="icon item" href="/admin">
             <i class="ui settings icon"></i>
           </a>
         {{/if}}
-
+        <a class="icon item" href="/billboard">
+          Queue Status
+        </a>
+        
         <div class="right menu">
           {{> navMentor }}
           {{> navAccount }}
@@ -22,7 +24,7 @@
     <div id="mobile-nav">
       {{#if userIs 'mentor'}}
         <div class="ui bottom fixed three item labeled icon menu">
-          <a class="item" href="/">
+          <a class="item" href="/createticket">
             <i class="home icon"></i>
             Home
           </a>

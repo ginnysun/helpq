@@ -1,10 +1,22 @@
 // Startup Functions
 Meteor.startup(function(){
   // Grab the config
-  var config = JSON.parse(Assets.getText('config.json'));
+  // This should be autograbbed by meteor based on value of --settings
+  var config = Meteor.settings;
 
-  // Create the admin
-  createAdmin(config.admin.username, config.admin.password);
+  // Create admins
+  // Coffeescript code
+  // for admin in config.admins
+  // createAdmin(admin.username, config.public.password, admin.profile)
+  var admin, i, len, ref;
+
+  ref = config.admins;
+  for (i = 0, len = ref.length; i < len; i++) {
+    admin = ref[i];
+    createAdmin(admin.username, config["public"].password, admin.profile);
+  }
+
+  // Pre-populate mentor users
 
   // Clear Service integrations
   ServiceConfiguration.configurations.remove({});
@@ -31,30 +43,27 @@ Meteor.startup(function(){
 
 });
 
-function createAdmin(username, password){
+function createAdmin(username, password, profile){
+  var newUser = {
+    username: username,
+    password: password,
+    profile: profile
+  };
+
   var user = Meteor.users.findOne({
     username: username
   });
 
-  if (!user){
-    Accounts.createUser({
-      username: username,
-      password: password,
-      profile: {
-        name: 'Admin'
-      }
-    });
-  }
+  // Set to be mentor AND admin.
+  newUser.profile.admin = true;
+  newUser.profile.mentor = true;
 
-  Meteor.users.update({
-    username: username
-  },{
-    $set:
-      {
-        'profile.admin': true
-      }
-  })
-}
+  // Only overwrite user if it does not exist.
+  if (!user){
+    Accounts.createUser(newUser);
+  }
+  };
+
 
 function addServiceIntegration(service, config){
   if (config.enable){

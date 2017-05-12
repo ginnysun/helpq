@@ -1,5 +1,5 @@
-<template name="mentor">
-  <div id="mentor">
+<template name="billboard">
+  <div id="billboard">
     <div class="ui three column stackable centered container grid">
       <div class="4 wide column" id="track_1_tickets">
         <h3 style="text-align:center;">{{constant 'TRACK_1_DESC'}}</h3>
@@ -16,4 +16,15 @@
     </div>
     <br>
   </div>
+
+<!-- Remove cruft using CSS. -->
+<style type="text/css">
+.description {
+  display: none;
+}
+.extra.content {
+  display: none;
+}
+</style>
+
 </template>

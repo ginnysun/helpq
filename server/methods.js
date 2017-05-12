@@ -18,6 +18,7 @@ Meteor.methods({
   toggleRole: toggleRole,
   updateUser: updateUser,
   createAccount: createAccount,
+  createLoginlessAccount: createLoginlessAccount,
 
   setSetting : setSetting
 });
@@ -43,7 +44,7 @@ function createTicket(topic, location, contact) {
       userId: user._id,
       name: _getUserName(user),
       topic: topic,
-      location: location,
+      location: parseInt(location, 10), // Make location a table number
       contact: contact,
       timestamp: Date.now(),
       status: "OPEN",
@@ -299,6 +300,23 @@ function createAccount(username, password, profile){
     });
   }
   return false;
+}
+
+// To allow for login-less usage, we allow everyone to be able to create accounts.
+// Username is firstname-lastname-track.
+// password is "password"
+function createLoginlessAccount(username, password, profile){
+  // TODO: validate username, password
+  check(username, String);
+  check(password, String);
+
+  // TODO: Disallow for any of the users created to be admins.
+
+  return Accounts.createUser({
+    username: username,
+    password: password,
+    profile: profile ? profile : {}
+  });
 }
 
 function setSetting(setting, value){
